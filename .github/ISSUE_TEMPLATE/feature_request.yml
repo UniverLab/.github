@@ -1,0 +1,61 @@
+name: Feature request
+description: Propose an improvement aligned with UniverLab goals.
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement.
+
+        UniverLab values focused tools, reproducibility, and low-friction UX.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What pain point are you trying to solve?
+      placeholder: Describe the current limitation clearly.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should change?
+      placeholder: Describe your preferred solution.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches did you evaluate?
+      placeholder: List alternatives and why they were not chosen.
+    validations:
+      required: false
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and impact
+      description: Which project(s) are affected and what is the expected impact?
+      placeholder: Affected tools, users, backward compatibility, migration notes.
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples / references
+      description: Links, sample commands, or screenshots (if useful).
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I searched existing issues/discussions and did not find a duplicate.
+          required: true
+        - label: This request is scoped and aligned with "one tool, one purpose."
+          required: true
+        - label: I described expected behavior and impact clearly.
+          required: true

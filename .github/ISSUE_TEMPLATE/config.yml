@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability report
+    url: https://github.com/UniverLab/.github/security/advisories/new
+    about: Please report vulnerabilities privately via Security Advisories.
+  - name: Support and troubleshooting
+    url: https://github.com/UniverLab/.github/blob/main/SUPPORT.md
+    about: Read support channels, SLAs, and troubleshooting guidance.
+  - name: Contribution guidelines
+    url: https://github.com/UniverLab/.github/blob/main/CONTRIBUTING.md
+    about: Check workflow, standards, and merge criteria before opening issues/PRs.

@@ -1,0 +1,90 @@
+name: Bug report
+description: Report a reproducible problem in a UniverLab project.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this bug.
+
+        Please search existing issues first and provide reproducible details.
+  - type: input
+    id: project_version
+    attributes:
+      label: Affected project and version
+      description: Which project is affected and which version are you using?
+      placeholder: "e.g., texforge 0.5.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences describing the problem.
+      placeholder: A clear and concise summary of the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide deterministic steps.
+      placeholder: |
+        1. Run command ...
+        2. Use input ...
+        3. Observe error ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: What actually happened?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs / stack traces
+      description: Paste any useful output. Avoid secrets.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: precheck
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: I tested with the latest available version.
+          required: true
+        - label: I included enough detail to reproduce the issue.
+          required: true
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting, you agree to follow the project's Code of Conduct.
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
