@@ -12,28 +12,13 @@
 
 > *"We are the eyes of the universe opening after a long sleep. Our work is to create, care, and understand."*
 
-UniverLab is an open ecosystem for practical developer tooling, scientific workflows, and agent systems.  
-We build software with low friction, strong ethics, and long-term maintainability.
+UniverLab is an independent computational laboratory dedicated to designing,
+building and publishing **open experiments**: developer tools, scientific
+workflows, agent systems and research artifacts.
 
----
-
-## 🚀 Ecosystem
-
-| Project | What it does | Status |
-|---|---|---|
-| [`texforge`](https://github.com/UniverLab/texforge) | Self-contained LaTeX compiler CLI | Published |
-| [`gitkit`](https://github.com/UniverLab/gitkit) | Git configuration and bootstrap CLI | Published |
-| [`ghscaff`](https://github.com/UniverLab/ghscaff) | Interactive GitHub repository scaffolder | In progress |
-| [`agent-canopy`](https://github.com/UniverLab/agent-canopy) | Agent orchestration daemon with project memory | In progress |
-| [`workflows`](https://github.com/UniverLab/workflows) | Reusable Rust CI/CD workflows and install templates | In progress |
-| [`texforge-templates`](https://github.com/UniverLab/texforge-templates) | Official LaTeX templates with placeholders | Active |
-
----
-
-## 🧪 Research Tracks
-
-- **`astro-denoise-*`**: denoising benchmark research on DESC DC2 / LSST data
-- **`cadforge`**: architecture-as-code with deterministic CAD generation
+The experiment is the project. Code, papers, datasets and documentation are
+its outputs. Explore the pinned repositories below — each experiment tells
+its own story in its own README.
 
 ---
 
@@ -46,19 +31,6 @@ We build software with low friction, strong ethics, and long-term maintainabilit
 | Offline-friendly design | Minimal hard dependency on external runtimes/services |
 | Backward compatibility | New capabilities should preserve stable defaults |
 | Community-centered growth | Mentorship, clear docs, and transparent reviews |
-
----
-
-## 📋 2026 Roadmap (high level)
-
-```text
-Phase 1: texforge       ✅ completed
-Phase 2: gitkit         ✅ completed
-Phase 2.5: workflows    🔄 in progress
-Phase 3: agent-canopy   ⏳ next
-```
-
-Parallel tracks: `astro-denoise-*`, `cadforge`.
 
 ---
 
