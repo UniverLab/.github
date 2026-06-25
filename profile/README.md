@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/UniverLab"><img src="https://img.shields.io/badge/GitHub-@UniverLab-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
-  <img src="https://img.shields.io/badge/Identity-SCI%20%C2%B7%20CLI%20%C2%B7%20BIO%20%C2%B7%20CAD-3B82F6?style=for-the-badge" alt="Identity"/>
+  <img src="https://img.shields.io/badge/Identity-SCI%20%C2%B7%20CLI%20%C2%B7%20BIO%20-3B82F6?style=for-the-badge" alt="Identity"/>
   <img src="https://img.shields.io/badge/Primary-Rust-CE422B?style=for-the-badge&logo=rust&logoColor=white" alt="Rust"/>
   <img src="https://img.shields.io/badge/Philosophy-Offline--First-2E8B57?style=for-the-badge" alt="Offline First"/>
   <img src="https://img.shields.io/badge/Focus-Reproducible%20Engineering-6A5ACD?style=for-the-badge" alt="Reproducibility"/>
@@ -64,7 +64,6 @@ We treat software as a moral practice, not only a technical one.
 
 - Organization: https://github.com/UniverLab
 - Lead maintainer: https://github.com/JheisonMB
-- Org email: `contact@univerlab.dev` (coming soon)
 
 ---
 
