@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=gradient&text=UniverLab%20Support&fontAlignY=38&fontSize=36&desc=Fast%20help,%20clear%20channels,%20community-first&descAlignY=60&animation=fadeIn" alt="Support Header"/>
+  <img src="https://raw.githubusercontent.com/UniverLab/.github/main/assets/banner-support.svg" alt="UniverLab — Support"/>
 </p>
 
 <p align="center">
@@ -22,7 +22,7 @@ Need help with a UniverLab project? Start with the right channel below to get fa
 | Security Advisory | Vulnerabilities (private) | < 48h |
 | Maintainer email | Coordination or sensitive context | As available |
 
-Primary maintainer contact: `jheison.mb@gmail.com`
+Primary maintainer contact: `jheison.mb@univerlab.org`
 
 ---
 

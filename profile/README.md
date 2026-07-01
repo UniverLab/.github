@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=190&color=gradient&text=UniverLab&fontAlignY=35&fontSize=52&desc=SCI%20CLI%20BIO%&descAlignY=58&animation=fadeIn" alt="UniverLab Header"/>
+  <img src="https://raw.githubusercontent.com/UniverLab/.github/main/assets/banner-profile.svg" alt="UniverLab"/>
 </p>
 
 <p align="center">

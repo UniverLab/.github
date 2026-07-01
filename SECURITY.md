@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=gradient&text=UniverLab%20Security%20Policy&fontAlignY=38&fontSize=34&desc=Responsible%20disclosure%20and%20secure%20engineering&descAlignY=60&animation=fadeIn" alt="Security Policy Header"/>
+  <img src="https://raw.githubusercontent.com/UniverLab/.github/main/assets/banner-security.svg" alt="UniverLab — Security Policy"/>
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@ If you find a vulnerability, please report it privately and avoid public disclos
 Do **not** open public issues for security vulnerabilities.
 
 Use one of these channels:
-- Email: `jheison.mb@gmail.com`
+- Email: `jheison.mb@univerlab.org`
 - GitHub Security Advisory (preferred for repository-specific vulnerabilities)
 
 Recommended report contents:
