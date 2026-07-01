@@ -11,3 +11,6 @@
 .qwen/
 .agents/
 skills-lock.json
+
+# banner generator deps
+scripts/node_modules/

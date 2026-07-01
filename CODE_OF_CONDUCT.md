@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=gradient&text=UniverLab%20Code%20of%20Conduct&fontAlignY=38&fontSize=34&desc=Inclusive%20community%20for%20serious%20builders&descAlignY=60&animation=fadeIn" alt="Code of Conduct Header"/>
+  <img src="https://raw.githubusercontent.com/UniverLab/.github/main/assets/banner-code-of-conduct.svg" alt="UniverLab — Code of Conduct"/>
 </p>
 
 <p align="center">
@@ -55,7 +55,7 @@ If you witness or experience a violation:
 
 1. If safe, communicate boundaries directly and briefly.
 2. Report privately to maintainers:
-   - `jheison.mb@gmail.com`
+   - `jheison.mb@univerlab.org`
    - Private GitHub security advisory when appropriate
 3. Include context:
    - What happened

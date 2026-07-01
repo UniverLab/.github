@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=gradient&text=Contributing%20to%20UniverLab&fontAlignY=38&fontSize=34&desc=Clear%20workflow%20for%20high-quality%20contributions&descAlignY=60&animation=fadeIn" alt="Contributing Header"/>
+  <img src="https://raw.githubusercontent.com/UniverLab/.github/main/assets/banner-contributing.svg" alt="UniverLab — Contributing"/>
 </p>
 
 <p align="center">
