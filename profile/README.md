@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/UniverLab"><img src="https://img.shields.io/badge/GitHub-@UniverLab-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
-  <img src="https://img.shields.io/badge/Identity-SCI%20%C2%B7%20CLI%20%C2%B7%20BIO%20-3B82F6?style=for-the-badge" alt="Identity"/>
-  <img src="https://img.shields.io/badge/Primary-Rust-CE422B?style=for-the-badge&logo=rust&logoColor=white" alt="Rust"/>
-  <img src="https://img.shields.io/badge/Philosophy-Offline--First-2E8B57?style=for-the-badge" alt="Offline First"/>
-  <img src="https://img.shields.io/badge/Focus-Reproducible%20Engineering-6A5ACD?style=for-the-badge" alt="Reproducibility"/>
+  <a href="https://github.com/UniverLab"><img src="https://img.shields.io/badge/GitHub-@UniverLab-2b3332?style=flat-square&labelColor=1a1f1e&logo=github&logoColor=ecebe4" alt="GitHub"/></a>
+  <img src="https://img.shields.io/badge/Identity-SCI%20%C2%B7%20CLI%20%C2%B7%20BIO%20-2b3332?style=flat-square&labelColor=1a1f1e" alt="Identity"/>
+  <img src="https://img.shields.io/badge/Primary-Rust-2b3332?style=flat-square&labelColor=1a1f1e&logo=rust&logoColor=ecebe4" alt="Rust"/>
+  <img src="https://img.shields.io/badge/Philosophy-Offline--First-2b3332?style=flat-square&labelColor=1a1f1e" alt="Offline First"/>
+  <img src="https://img.shields.io/badge/Focus-Reproducible%20Engineering-2b3332?style=flat-square&labelColor=1a1f1e" alt="Reproducibility"/>
 </p>
 
 > *"We are the eyes of the universe opening after a long sleep. Our work is to create, care, and understand."*

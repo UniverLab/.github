@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Disclosure-Private%20First-3B82F6?style=for-the-badge" alt="Private Disclosure"/>
-  <img src="https://img.shields.io/badge/SLA-Ack%20in%2048h-2E8B57?style=for-the-badge" alt="48h SLA"/>
-  <img src="https://img.shields.io/badge/Critical%20Fix-7%20Days-EA580C?style=for-the-badge" alt="Critical Fix"/>
-  <img src="https://img.shields.io/badge/Principle-Reproducible%20Security-6A5ACD?style=for-the-badge" alt="Reproducible Security"/>
+  <img src="https://img.shields.io/badge/Disclosure-Private%20First-2b3332?style=flat-square&labelColor=1a1f1e" alt="Private Disclosure"/>
+  <img src="https://img.shields.io/badge/SLA-Ack%20in%2048h-2b3332?style=flat-square&labelColor=1a1f1e" alt="48h SLA"/>
+  <img src="https://img.shields.io/badge/Critical%20Fix-7%20Days-2b3332?style=flat-square&labelColor=1a1f1e" alt="Critical Fix"/>
+  <img src="https://img.shields.io/badge/Principle-Reproducible%20Security-2b3332?style=flat-square&labelColor=1a1f1e" alt="Reproducible Security"/>
 </p>
 
 Security is a shared responsibility.  
