@@ -5,7 +5,13 @@
 // and does NOT load custom fonts, so every word is outlined to vector <path>
 // here: the wordmark and kicker in Sometype Mono (the lab's typewriter voice),
 // the tagline in Old Standard TT italic (its engraving voice). The slate tile
-// and the machine plates are embedded as data URIs, so the SVG is self-contained.
+// and the engravings are embedded as data URIs, so the SVG is self-contained.
+// The profile banner is the home's live view: the magic lantern projecting the
+// mark and the wordmark onto its screen.
+//
+// Each experiment's README opens with its own banner: its night machine plate
+// beside the CLI's ASCII wordmark (scripts/ascii/<id>.txt), drawn cell by cell
+// in chalk — █ solid, ░ faint.
 //
 // Run: npm install && npm run build   (writes ../assets/banner-*.svg)
 
@@ -29,8 +35,13 @@ const italic = opentype.loadSync(join(HERE, 'fonts', 'OldStandard-Italic.ttf'));
 
 const dataUri = (file) => `data:image/webp;base64,${readFileSync(join(ASSETS, file)).toString('base64')}`;
 const SLATE_TILE = dataUri('pizarra.webp');
-// The night plates of the seven experiments, in bench order (increasing height on the profile banner).
-const MACHINES = ['canopy', 'texforge', 'gitkit', 'ghscaff', 'astro-denoise', 'demostage', 'quorum'];
+const LANTERN = 'lantern-night.webp';
+// Where the cloth screen sits inside the lantern engraving (fractions of its box, from the site manifest).
+const SCREEN = { x: 0.16, y: 0.068, w: 0.69, h: 0.7 };
+// The lamp's flame, the origin of the projection glow (fractions of the engraving box).
+const LAMP = { x: 0.215, y: 0.84 };
+// Lamplight: the warm white the projection is drawn in.
+const LIGHT = '#f6ecd2';
 /** Width and height of a WebP file, read from its header (VP8X, VP8L or VP8). */
 function webpSize(file) {
   const b = readFileSync(join(ASSETS, file));
@@ -50,17 +61,31 @@ const MARK_FACES = [
 // ── Banner definitions (the parameters) ─────────────────────────────────────
 // Accents are the chalk-legible versions of each page's colour on the slate.
 const BANNERS = [
-  { id: 'profile', kicker: 'SCI · CLI · BIO', tagline: 'An independent computational laboratory of open experiments.', accent: '#e6c84a', bench: true },
+  { id: 'profile', kicker: 'SCI · CLI · BIO', tagline: ['An independent computational', 'laboratory of open experiments.'], footnote: 'univerlab.org · open · local-first · reproducible', accent: '#e6c84a', lantern: true },
   { id: 'security', kicker: 'SECURITY POLICY', tagline: 'Responsible disclosure and secure engineering.', accent: '#e07a6e' },
   { id: 'support', kicker: 'SUPPORT', tagline: 'How to get help across the lab’s experiments.', accent: '#7fd3a8' },
   { id: 'contributing', kicker: 'CONTRIBUTING', tagline: 'Conventions, branches and the pull-request flow.', accent: '#7cc6e6' },
   { id: 'code-of-conduct', kicker: 'CODE OF CONDUCT', tagline: 'The standards we hold each other to.', accent: '#b39cf5' },
 ];
 
+// The experiments, as on univerlab.org: number, name, chalk-legible essence, tagline.
+const PROJECTS = [
+  { id: 'canopy', number: 'EXP-001', name: 'Canopy', accent: '#3cc7bd', tagline: 'A graph engine for AI coding agents — every harness, one workflow.' },
+  { id: 'texforge', number: 'EXP-002', name: 'TeXForge', accent: '#e06f7a', tagline: 'A unified LaTeX workspace — writing, diagrams, and PDFs in one self-contained tool.' },
+  { id: 'gitkit', number: 'EXP-003', name: 'GitKit', accent: '#e683c9', tagline: 'Guided git repository setup — hooks, ignores, attributes, and config in one flow.' },
+  { id: 'ghscaff', number: 'EXP-004', name: 'ghScaff', accent: '#62c4ec', tagline: 'An interactive wizard that scaffolds and enforces conventions on GitHub repositories.' },
+  { id: 'demostage', number: 'EXP-007', name: 'DemoStage', accent: '#fa7a5e', tagline: 'Demos as Code — capture, record and export reproducible terminal demos.' },
+  { id: 'quorum', number: 'EXP-008', name: 'Quorum', accent: '#e6b24a', tagline: 'Serverless planning poker — share a link, estimate together, no sign-up.' },
+];
+
 // ── Layout constants ────────────────────────────────────────────────────────
 const W = 1280;
 const H_HEALTH = 340;   // health-file banners
-const H_BENCH = 520;    // the profile banner: text above, the bench below
+const H_LANTERN = 460;  // the profile banner: the lantern and its screen, text beside it
+const LANTERN_H = 404;  // rendered height of the lantern engraving
+const H_PROJECT = 360;  // experiment README banners
+const PLATE_H = 272;    // rendered height of a machine plate
+const CELL_W = 6.4;     // widest ASCII cell; cells are twice as tall as wide, like a terminal
 const PAD = 76;
 const MARK = 150;              // rendered mark size
 const WORDMARK_SIZE = 56;      // Sometype Mono "univerlab"
@@ -87,13 +112,56 @@ function spacedPath(font, text, x, baselineY, fontSize, trackEm) {
   return { d: parts.join(' '), width: cursor - x - track };
 }
 
-/** The engraved mark in chalk: top face stippled, left hatched, right cross-hatched. */
-function engravedMark(x, y, size) {
+/** The three engraving fills (stipple, hatch, cross-hatch) in one ink, ids suffixed with `id`. */
+function engravingPatterns(id, ink) {
+  return `<pattern id="hatch${id}" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><path d="M0 8 H16" stroke="${ink}" stroke-width="3.4"/></pattern>
+    <pattern id="cross${id}" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><path d="M0 7 H14 M7 0 V14" stroke="${ink}" stroke-width="2.8"/></pattern>
+    <pattern id="dots${id}" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="12" cy="12" r="2.2" fill="${ink}"/></pattern>`;
+}
+
+/** Split `text` into the fewest lines no wider than `maxW`, balanced so no line is left a widow. */
+function wrap(font, text, size, maxW) {
+  const count = greedyWrap(font, text, size, maxW).length;
+  let lo = 0, hi = maxW;
+  while (hi - lo > 1) { const mid = (lo + hi) / 2; if (greedyWrap(font, text, size, mid).length > count) lo = mid; else hi = mid; }
+  return greedyWrap(font, text, size, hi);
+}
+
+/** Greedy line breaking: fill each line up to `maxW`. */
+function greedyWrap(font, text, size, maxW) {
+  const lines = [];
+  let line = '';
+  for (const word of text.split(' ')) {
+    const next = line ? `${line} ${word}` : word;
+    if (line && font.getAdvanceWidth(next, size) > maxW) { lines.push(line); line = word; } else line = next;
+  }
+  return [...lines, line];
+}
+
+/**
+ * The ASCII wordmark in chalk, cell by cell with a hairline gap so the grid reads:
+ * █ solid, ░ faint. Returns the svg and its height.
+ */
+function asciiArt(rows, x, y, cw) {
+  const ch = cw * 2, gap = 0.7;
+  const cells = { '█': [], '░': [] };
+  rows.forEach((row, r) => [...row].forEach((shade, c) => {
+    if (cells[shade]) cells[shade].push(`M${(x + c * cw).toFixed(1)} ${(y + r * ch).toFixed(1)}h${(cw - gap).toFixed(1)}v${(ch - gap).toFixed(1)}h${(gap - cw).toFixed(1)}z`);
+  }));
+  return {
+    svg: `<path d="${cells['░'].join('')}" fill="${CHALK}" fill-opacity=".2"/>
+  <path d="${cells['█'].join('')}" fill="${CHALK}"/>`,
+    height: rows.length * ch,
+  };
+}
+
+/** The engraved mark: top face stippled, left hatched, right cross-hatched, in the patterns `id`. */
+function engravedMark(x, y, size, ink = CHALK, id = '') {
   const s = size / 500;
-  return `<g transform="translate(${x} ${y}) scale(${s.toFixed(4)})" stroke="${CHALK}" stroke-linejoin="round">
-    <path d="${MARK_FACES[0]}" fill="url(#dots)" stroke-width="12"/>
-    <path d="${MARK_FACES[2]}" fill="url(#hatch)" stroke-width="12"/>
-    <path d="${MARK_FACES[1]}" fill="url(#cross)" stroke-width="12"/>
+  return `<g transform="translate(${x} ${y}) scale(${s.toFixed(4)})" stroke="${ink}" stroke-linejoin="round">
+    <path d="${MARK_FACES[0]}" fill="url(#dots${id})" stroke-width="12"/>
+    <path d="${MARK_FACES[2]}" fill="url(#hatch${id})" stroke-width="12"/>
+    <path d="${MARK_FACES[1]}" fill="url(#cross${id})" stroke-width="12"/>
   </g>`;
 }
 
@@ -115,22 +183,93 @@ function frame(H) {
   </g>`;
 }
 
-/** The bench: the seven night plates in a row of increasing height, centred along the bottom. */
-function bench(h) {
-  const gap = 18, base = h - 54;
-  const heights = MACHINES.map((_, i) => 128 + i * 12);
-  const widths = MACHINES.map((m, i) => { const [w, hh] = webpSize(`${m}-night.webp`); return (w * heights[i]) / hh; });
-  let x = (W - widths.reduce((a, b) => a + b, 0) - gap * (MACHINES.length - 1)) / 2;
-  return MACHINES.map((m, i) => {
-    const img = `<image href="${dataUri(`${m}-night.webp`)}" x="${x.toFixed(1)}" y="${(base - heights[i]).toFixed(1)}" width="${widths[i].toFixed(1)}" height="${heights[i]}"/>`;
-    x += widths[i] + gap;
-    return img;
-  }).join('\n  ');
+/**
+ * The live view: the lantern engraving with the mark and the wordmark projected on its screen.
+ * The screen is transparent in the engraving, so the projection is drawn first and the
+ * engraving on top, the way the site layers its slides. Returns the svg and its right edge.
+ */
+function lantern(x, y) {
+  const [iw, ih] = webpSize(LANTERN);
+  const w = (iw * LANTERN_H) / ih, h = LANTERN_H;
+  const sx = x + SCREEN.x * w, sy = y + SCREEN.y * h, sw = SCREEN.w * w, sh = SCREEN.h * h;
+  const cx = sx + sw / 2;
+  const lamp = [x + LAMP.x * w, y + LAMP.y * h];
+  const mark = 116, markY = sy + 30;
+  const wmSize = 42;
+  const wmProbe = spacedPath(mono, 'univerlab', 0, 0, wmSize, WORDMARK_TRACK);
+  const wm = spacedPath(mono, 'univerlab', cx - wmProbe.width / 2, markY + mark + 62, wmSize, WORDMARK_TRACK);
+  const svg = `<g>
+    <rect x="${sx.toFixed(1)}" y="${sy.toFixed(1)}" width="${sw.toFixed(1)}" height="${sh.toFixed(1)}" fill="#161b1a"/>
+    <rect x="${sx.toFixed(1)}" y="${sy.toFixed(1)}" width="${sw.toFixed(1)}" height="${sh.toFixed(1)}" fill="url(#throw)"/>
+    <circle cx="${lamp[0].toFixed(1)}" cy="${lamp[1].toFixed(1)}" r="${(h * 0.3).toFixed(1)}" fill="url(#lamp)"/>
+    <g filter="url(#halo)">
+      ${engravedMark(cx - mark / 2, markY, mark, LIGHT, 'L')}
+      <path d="${wm.d}" fill="${LIGHT}"/>
+    </g>
+  </g>
+  <image href="${dataUri(LANTERN)}" x="${x}" y="${y}" width="${w.toFixed(1)}" height="${h}"/>`;
+  return { svg, right: x + w };
 }
 
-function buildSvg({ kicker, tagline, accent, bench: withBench }) {
-  const H = withBench ? H_BENCH : H_HEALTH;
-  const top = withBench ? 40 : (H - MARK) / 2;   // the text block keeps its 340 px layout at the top
+/** The shared ground: slate, the accent's glow, the double rule, and the pattern defs. */
+function ground(H, accent, extraDefs = '') {
+  return `<defs>
+    <pattern id="slate" width="341" height="341" patternUnits="userSpaceOnUse"><image href="${SLATE_TILE}" width="341" height="341"/></pattern>
+    ${engravingPatterns('', CHALK)}${extraDefs ? `\n    ${extraDefs}` : ''}
+    <radialGradient id="glow" cx="20%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="${accent}" stop-opacity="0.08"/>
+      <stop offset="60%" stop-color="${SLATE}" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="${W}" height="${H}" rx="22" fill="${SLATE}"/>
+  <rect width="${W}" height="${H}" rx="22" fill="url(#slate)"/>
+  <rect width="${W}" height="${H}" rx="22" fill="url(#glow)"/>
+  ${frame(H)}`;
+}
+
+/** Defs for the projection: lamplight patterns, the light thrown on the screen, the lamp's glow, the halo. */
+const PROJECTION_DEFS = `${engravingPatterns('L', LIGHT)}
+    <radialGradient id="throw" cx="50%" cy="46%" r="62%">
+      <stop offset="0%" stop-color="${LIGHT}" stop-opacity="0.2"/>
+      <stop offset="70%" stop-color="${LIGHT}" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="${LIGHT}" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lamp">
+      <stop offset="0%" stop-color="#f2c46b" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#f2c46b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="halo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>`;
+
+/** The profile banner: the lantern projecting the lab's name, the kicker and tagline beside it. */
+function buildLanternSvg({ kicker, tagline, footnote, accent }) {
+  const H = H_LANTERN;
+  const lan = lantern(PAD - 16, (H - LANTERN_H) / 2 + 6);
+  const textX = lan.right + 64;
+  const kickerBaseline = 150;
+  const kk = spacedPath(mono, kicker, textX, kickerBaseline, KICKER_SIZE, KICKER_TRACK);
+  const lines = tagline.map((t, i) => textPath(italic, t, textX, kickerBaseline + 58 + i * 46, 38));
+  const ruleY = kickerBaseline + 58 + (tagline.length - 1) * 46 + 40;
+  const foot = spacedPath(mono, footnote, textX, ruleY + 42, 15, 0.04);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="univerlab — ${kicker}">
+  ${ground(H, accent, PROJECTION_DEFS)}
+  ${lan.svg}
+
+  <path d="${kk.d}" fill="${accent}"/>
+  ${lines.map((d) => `<path d="${d}" fill="${CHALK}"/>`).join('\n  ')}
+  <g stroke="${CHALK}" stroke-opacity=".6"><path d="M${textX} ${ruleY} h120" stroke-width="1.6"/><path d="M${textX} ${ruleY + 5} h120" stroke-width=".8"/></g>
+  <path d="${foot.d}" fill="${CHALK_DIM}"/>
+</svg>
+`;
+}
+
+/** A health-file banner: the engraved mark, the wordmark, the kicker and the tagline. */
+function buildSvg({ kicker, tagline, accent }) {
+  const H = H_HEALTH;
+  const top = (H - MARK) / 2;
   const markX = PAD;
   const markY = top;
   const textX = markX + MARK + 38;
@@ -145,22 +284,7 @@ function buildSvg({ kicker, tagline, accent, bench: withBench }) {
   const rule = `<path d="M${textX} ${wordmarkBaseline + 15} h${wm.width.toFixed(1)}" stroke="${accent}" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round"/>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="univerlab — ${kicker}">
-  <defs>
-    <pattern id="slate" width="341" height="341" patternUnits="userSpaceOnUse"><image href="${SLATE_TILE}" width="341" height="341"/></pattern>
-    <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><path d="M0 8 H16" stroke="${CHALK}" stroke-width="3.4"/></pattern>
-    <pattern id="cross" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><path d="M0 7 H14 M7 0 V14" stroke="${CHALK}" stroke-width="2.8"/></pattern>
-    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="12" cy="12" r="2.2" fill="${CHALK}"/></pattern>
-    <radialGradient id="glow" cx="20%" cy="45%" r="70%">
-      <stop offset="0%" stop-color="${accent}" stop-opacity="0.08"/>
-      <stop offset="60%" stop-color="${SLATE}" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-
-  <rect width="${W}" height="${H}" rx="22" fill="${SLATE}"/>
-  <rect width="${W}" height="${H}" rx="22" fill="url(#slate)"/>
-  <rect width="${W}" height="${H}" rx="22" fill="url(#glow)"/>
-  ${frame(H)}
-  ${withBench ? bench(H) : ''}
+  ${ground(H, accent)}
 
   ${engravedMark(markX, markY, MARK)}
 
@@ -172,10 +296,50 @@ function buildSvg({ kicker, tagline, accent, bench: withBench }) {
 `;
 }
 
+/** An experiment's README banner: its night plate, then its kicker, ASCII wordmark and tagline. */
+function buildProjectSvg({ id, number, name, accent, tagline }) {
+  const H = H_PROJECT;
+  const plate = `${id}-night.webp`;
+  const [pw, ph] = webpSize(plate);
+  const plateW = (pw * PLATE_H) / ph;
+  const plateY = (H - PLATE_H) / 2 + 4;
+  const textX = PAD + plateW + 56;
+  const maxW = W - PAD - textX;
+
+  const rows = readFileSync(join(HERE, 'ascii', `${id}.txt`), 'utf8').replace(/\s+$/, '').split('\n');
+  const cols = Math.max(...rows.map((r) => [...r].length));
+  const cw = Math.min(CELL_W, maxW / cols);
+  const taglineLines = wrap(italic, tagline, TAGLINE_SIZE, maxW);
+
+  // Vertical rhythm: kicker, 24 px, the ASCII block, 44 px, the tagline lines 32 px apart; centred.
+  const artH = rows.length * cw * 2;
+  const blockH = KICKER_SIZE + 24 + artH + 44 + (taglineLines.length - 1) * 32;
+  const kickerBaseline = (H - blockH) / 2 + KICKER_SIZE;
+  const kk = spacedPath(mono, `${number} · ${name.toUpperCase()}`, textX, kickerBaseline, KICKER_SIZE, KICKER_TRACK);
+  const art = asciiArt(rows, textX, kickerBaseline + 24, cw);
+  const taglineTop = kickerBaseline + 24 + art.height + 44;
+  const lines = taglineLines.map((t, i) => textPath(italic, t, textX, taglineTop + i * 32, TAGLINE_SIZE));
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${name} — ${number}, a univerlab experiment">
+  ${ground(H, accent)}
+  <image href="${dataUri(plate)}" x="${PAD}" y="${plateY}" width="${plateW.toFixed(1)}" height="${PLATE_H}"/>
+
+  <path d="${kk.d}" fill="${accent}"/>
+  ${art.svg}
+  ${lines.map((d) => `<path d="${d}" fill="${CHALK_DIM}"/>`).join('\n  ')}
+</svg>
+`;
+}
+
 mkdirSync(OUT, { recursive: true });
 for (const b of BANNERS) {
-  const svg = buildSvg(b);
+  const svg = b.lantern ? buildLanternSvg(b) : buildSvg(b);
   writeFileSync(join(OUT, `banner-${b.id}.svg`), svg);
   console.log(`✓ banner-${b.id}.svg  ${(svg.length / 1024).toFixed(0)} KB`);
 }
-console.log(`\nWrote ${BANNERS.length} banners to ${OUT}`);
+for (const p of PROJECTS) {
+  const svg = buildProjectSvg(p);
+  writeFileSync(join(OUT, `banner-${p.id}.svg`), svg);
+  console.log(`✓ banner-${p.id}.svg  ${(svg.length / 1024).toFixed(0)} KB`);
+}
+console.log(`\nWrote ${BANNERS.length + PROJECTS.length} banners to ${OUT}`);
