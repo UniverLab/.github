@@ -3,9 +3,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Scope-All%20UniverLab%20Repos-3B82F6?style=for-the-badge" alt="Scope"/>
-  <img src="https://img.shields.io/badge/Status-Active-2E8B57?style=for-the-badge" alt="Status"/>
-  <img src="https://img.shields.io/badge/Baseline-Contributor%20Covenant%20v2.1-6A5ACD?style=for-the-badge" alt="Contributor Covenant"/>
+  <img src="https://img.shields.io/badge/Scope-All%20UniverLab%20Repos-2b3332?style=flat-square&labelColor=1a1f1e" alt="Scope"/>
+  <img src="https://img.shields.io/badge/Status-Active-2b3332?style=flat-square&labelColor=1a1f1e" alt="Status"/>
+  <img src="https://img.shields.io/badge/Baseline-Contributor%20Covenant%20v2.1-2b3332?style=flat-square&labelColor=1a1f1e" alt="Contributor Covenant"/>
 </p>
 
 This Code of Conduct defines how we collaborate across the UniverLab ecosystem.  

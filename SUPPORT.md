@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Critical%20Incidents-%3C1h-EA580C?style=for-the-badge" alt="Critical SLA"/>
-  <img src="https://img.shields.io/badge/Bug%20Reports-%3C48h-2E8B57?style=for-the-badge" alt="Bug SLA"/>
-  <img src="https://img.shields.io/badge/Questions-24--72h-3B82F6?style=for-the-badge" alt="Question SLA"/>
-  <img src="https://img.shields.io/badge/Approach-Community%20Support-6A5ACD?style=for-the-badge" alt="Community Support"/>
+  <img src="https://img.shields.io/badge/Critical%20Incidents-%3C1h-2b3332?style=flat-square&labelColor=1a1f1e" alt="Critical SLA"/>
+  <img src="https://img.shields.io/badge/Bug%20Reports-%3C48h-2b3332?style=flat-square&labelColor=1a1f1e" alt="Bug SLA"/>
+  <img src="https://img.shields.io/badge/Questions-24--72h-2b3332?style=flat-square&labelColor=1a1f1e" alt="Question SLA"/>
+  <img src="https://img.shields.io/badge/Approach-Community%20Support-2b3332?style=flat-square&labelColor=1a1f1e" alt="Community Support"/>
 </p>
 
 Need help with a UniverLab project? Start with the right channel below to get faster support.

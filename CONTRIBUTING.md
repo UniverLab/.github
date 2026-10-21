@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Workflow-Issue%20%E2%86%92%20Branch%20%E2%86%92%20PR-3B82F6?style=for-the-badge" alt="Workflow"/>
-  <img src="https://img.shields.io/badge/Commits-Conventional-6A5ACD?style=for-the-badge" alt="Conventional Commits"/>
-  <img src="https://img.shields.io/badge/Tests-Required-2E8B57?style=for-the-badge" alt="Tests Required"/>
-  <img src="https://img.shields.io/badge/Docs-Update%20with%20Behavior-EA580C?style=for-the-badge" alt="Docs Required"/>
+  <img src="https://img.shields.io/badge/Workflow-Issue%20%E2%86%92%20Branch%20%E2%86%92%20PR-2b3332?style=flat-square&labelColor=1a1f1e" alt="Workflow"/>
+  <img src="https://img.shields.io/badge/Commits-Conventional-2b3332?style=flat-square&labelColor=1a1f1e" alt="Conventional Commits"/>
+  <img src="https://img.shields.io/badge/Tests-Required-2b3332?style=flat-square&labelColor=1a1f1e" alt="Tests Required"/>
+  <img src="https://img.shields.io/badge/Docs-Update%20with%20Behavior-2b3332?style=flat-square&labelColor=1a1f1e" alt="Docs Required"/>
 </p>
 
 Thank you for contributing. We welcome code, docs, bug reports, ideas, and mentoring.
