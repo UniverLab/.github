@@ -22,7 +22,7 @@ Need help with a UniverLab project? Start with the right channel below to get fa
 | Security Advisory | Vulnerabilities (private) | < 48h |
 | Maintainer email | Coordination or sensitive context | As available |
 
-Primary maintainer contact: `jheison.mb@univerlab.org`
+Primary maintainer contact: `hola@univerlab.org`
 
 ---
 
