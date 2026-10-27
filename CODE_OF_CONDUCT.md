@@ -55,7 +55,7 @@ If you witness or experience a violation:
 
 1. If safe, communicate boundaries directly and briefly.
 2. Report privately to maintainers:
-   - `jheison.mb@univerlab.org`
+   - `hola@univerlab.org`
    - Private GitHub security advisory when appropriate
 3. Include context:
    - What happened

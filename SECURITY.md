@@ -19,7 +19,7 @@ If you find a vulnerability, please report it privately and avoid public disclos
 Do **not** open public issues for security vulnerabilities.
 
 Use one of these channels:
-- Email: `jheison.mb@univerlab.org`
+- Email: `hola@univerlab.org`
 - GitHub Security Advisory (preferred for repository-specific vulnerabilities)
 
 Recommended report contents:
