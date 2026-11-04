@@ -75,6 +75,8 @@ const PROJECTS = [
   { id: 'gitkit', number: 'EXP-003', name: 'GitKit', accent: '#e683c9', tagline: 'Guided git repository setup — hooks, ignores, attributes, and config in one flow.' },
   { id: 'ghscaff', number: 'EXP-004', name: 'ghScaff', accent: '#62c4ec', tagline: 'An interactive wizard that scaffolds and enforces conventions on GitHub repositories.' },
   { id: 'demostage', number: 'EXP-007', name: 'DemoStage', accent: '#fa7a5e', tagline: 'Demos as Code — capture, record and export reproducible terminal demos.' },
+  { id: 'canopy-web', plate: 'canopy', number: 'EXP-001', name: 'Canopy Web', accent: '#3cc7bd', tagline: 'Canopy on the web — a catalogue of graphs to share, and your sessions in any browser.' },
+  { id: 'canopy-registry', plate: 'canopy', number: 'EXP-001', name: 'Canopy Registry', accent: '#3cc7bd', tagline: 'Every MCP client Canopy can set up — one canonical server list, translated per platform.' },
   { id: 'quorum', number: 'EXP-008', name: 'Quorum', accent: '#e6b24a', tagline: 'Serverless planning poker — share a link, estimate together, no sign-up.' },
 ];
 
@@ -297,9 +299,9 @@ function buildSvg({ kicker, tagline, accent }) {
 }
 
 /** An experiment's README banner: its night plate, then its kicker, ASCII wordmark and tagline. */
-function buildProjectSvg({ id, number, name, accent, tagline }) {
+function buildProjectSvg({ id, plate: plateId = id, number, name, accent, tagline }) {
   const H = H_PROJECT;
-  const plate = `${id}-night.webp`;
+  const plate = `${plateId}-night.webp`;
   const [pw, ph] = webpSize(plate);
   const plateW = (pw * PLATE_H) / ph;
   const plateY = (H - PLATE_H) / 2 + 4;
@@ -331,6 +333,35 @@ function buildProjectSvg({ id, number, name, accent, tagline }) {
 `;
 }
 
+/** The site's README banner: the lantern projecting the lab, its kicker, ASCII wordmark and tagline beside it. */
+function buildSiteSvg({ id, kicker, accent, tagline }) {
+  const H = H_LANTERN;
+  const lan = lantern(PAD - 16, (H - LANTERN_H) / 2 + 6);
+  const textX = lan.right + 48;
+  const maxW = W - PAD + 24 - textX;
+  const rows = readFileSync(join(HERE, 'ascii', `${id}.txt`), 'utf8').replace(/\s+$/, '').split('\n');
+  const cols = Math.max(...rows.map((r) => [...r].length));
+  const cw = Math.min(CELL_W, maxW / cols);
+  const taglineLines = wrap(italic, tagline, TAGLINE_SIZE, maxW);
+  const artH = rows.length * cw * 2;
+  const blockH = KICKER_SIZE + 24 + artH + 44 + (taglineLines.length - 1) * 32;
+  const kickerBaseline = (H - blockH) / 2 + KICKER_SIZE;
+  const kk = spacedPath(mono, kicker, textX, kickerBaseline, KICKER_SIZE, KICKER_TRACK);
+  const art = asciiArt(rows, textX, kickerBaseline + 24, cw);
+  const taglineTop = kickerBaseline + 24 + art.height + 44;
+  const lines = taglineLines.map((t, i) => textPath(italic, t, textX, taglineTop + i * 32, TAGLINE_SIZE));
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="univerlab.org — ${kicker}">
+  ${ground(H, accent, PROJECTION_DEFS)}
+  ${lan.svg}
+  <path d="${kk.d}" fill="${accent}"/>
+  ${art.svg}
+  ${lines.map((d) => `<path d="${d}" fill="${CHALK_DIM}"/>`).join('\n  ')}
+</svg>
+`;
+}
+
+const SITE = { id: 'univerlab-web', kicker: 'UNIVERLAB.ORG', accent: '#e6b24a', tagline: 'The lab’s landing site — its experiments, their docs and the manifesto, in two languages.' };
+
 mkdirSync(OUT, { recursive: true });
 for (const b of BANNERS) {
   const svg = b.lantern ? buildLanternSvg(b) : buildSvg(b);
@@ -342,4 +373,6 @@ for (const p of PROJECTS) {
   writeFileSync(join(OUT, `banner-${p.id}.svg`), svg);
   console.log(`✓ banner-${p.id}.svg  ${(svg.length / 1024).toFixed(0)} KB`);
 }
-console.log(`\nWrote ${BANNERS.length + PROJECTS.length} banners to ${OUT}`);
+writeFileSync(join(OUT, `banner-${SITE.id}.svg`), buildSiteSvg(SITE));
+console.log(`✓ banner-${SITE.id}.svg`);
+console.log(`\nWrote ${BANNERS.length + PROJECTS.length + 1} banners to ${OUT}`);
