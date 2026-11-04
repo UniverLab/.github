@@ -76,6 +76,7 @@ const PROJECTS = [
   { id: 'ghscaff', number: 'EXP-004', name: 'ghScaff', accent: '#62c4ec', tagline: 'An interactive wizard that scaffolds and enforces conventions on GitHub repositories.' },
   { id: 'demostage', number: 'EXP-007', name: 'DemoStage', accent: '#fa7a5e', tagline: 'Demos as Code — capture, record and export reproducible terminal demos.' },
   { id: 'canopy-web', plate: 'canopy', number: 'EXP-001', name: 'Canopy Web', accent: '#3cc7bd', tagline: 'Canopy on the web — a catalogue of graphs to share, and your sessions in any browser.' },
+  { id: 'canopy-graphs', plate: 'canopy', number: 'EXP-001', name: 'Canopy Graphs', accent: '#3cc7bd', tagline: 'The official graphs and nodes for Canopy — install one, or fork this repo to share your own.' },
   { id: 'canopy-registry', plate: 'canopy', number: 'EXP-001', name: 'Canopy Registry', accent: '#3cc7bd', tagline: 'Every MCP client Canopy can set up — one canonical server list, translated per platform.' },
   { id: 'quorum', number: 'EXP-008', name: 'Quorum', accent: '#e6b24a', tagline: 'Serverless planning poker — share a link, estimate together, no sign-up.' },
 ];
