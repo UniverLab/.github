@@ -361,7 +361,7 @@ function buildSiteSvg({ id, kicker, accent, tagline }) {
 `;
 }
 
-const SITE = { id: 'univerlab-web', kicker: 'UNIVERLAB.ORG', accent: '#e6b24a', tagline: 'The lab’s landing site — its experiments, their docs and the manifesto, in two languages.' };
+const SITE = { id: 'univerlab-web', kicker: 'UNIVERLAB.ORG', accent: '#e6b24a', tagline: 'The lab’s website — its experiments, their docs and the manifesto, in two languages.' };
 
 mkdirSync(OUT, { recursive: true });
 for (const b of BANNERS) {
