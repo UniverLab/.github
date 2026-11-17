@@ -79,6 +79,8 @@ const PROJECTS = [
   { id: 'canopy-graphs', plate: 'canopy', number: 'EXP-001', name: 'Canopy Graphs', accent: '#3cc7bd', tagline: 'The official graphs and nodes for Canopy — install one, or fork this repo to share your own.' },
   { id: 'canopy-registry', plate: 'canopy', number: 'EXP-001', name: 'Canopy Registry', accent: '#3cc7bd', tagline: 'Every MCP client Canopy can set up — one canonical server list, translated per platform.' },
   { id: 'quorum', number: 'EXP-008', name: 'Quorum', accent: '#e6b24a', tagline: 'Serverless planning poker — share a link, estimate together, no sign-up.' },
+  { id: 'facetmedia', number: 'EXP-009', name: 'facetMedia', accent: '#e8c547', tagline: 'Creation tools for agents — each in its own pinned environment, with verified output.' },
+  { id: 'facetmedia-registry', plate: 'facetmedia', number: 'EXP-009', name: 'facetMedia Registry', accent: '#e8c547', tagline: 'Every package and viewer facet installs, each one versioned on its own.' },
 ];
 
 // ── Layout constants ────────────────────────────────────────────────────────
